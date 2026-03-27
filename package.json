@@ -1,0 +1,19 @@
+{
+  "name": "whatsapp-masivo",
+  "version": "1.0.0",
+  "description": "Envío masivo de WhatsApp con anti-detección",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "luxon": "^3.5.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.34.6",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

@@ -1,0 +1,2 @@
+Hola {nombre}, este es un ejemplo de un mensaje enviado de forma automática.
+PSDT: ANGELICA ENCISO

@@ -1,0 +1,20 @@
+{
+  "excel": {
+    "file": "prueba.xlsx",
+    "sheet": 0,
+    "phoneColumn": 0,
+    "nameColumn": 1,
+    "hasHeader": true
+  },
+  "schedule": {
+    "startHour": 8,
+    "endHour": 20,
+    "timezone": "America/Lima"
+  },
+  "delays": {
+    "minBetweenMessages": 2000,
+    "maxBetweenMessages": 5000,
+    "pauseEvery": { "min": 10, "max": 15 },
+    "pauseDuration": { "min": 30000, "max": 60000 }
+  }
+}

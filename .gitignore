@@ -1,0 +1,6 @@
+.wwebjs_auth/
+data/state.json
+data/failed.json
+*.xlsx
+node_modules/
+docs
