@@ -1,21 +1,11 @@
 # WhatsApp Masivo
 
-Script de Node.js para enviar mensajes de WhatsApp a una lista de contactos desde un archivo Excel. Diseñado para envíos de hasta ~100 mensajes por día con mecanismos anti-detección: delays aleatorios entre mensajes, pausas largas y envío restringido al horario configurado.
+Script de Node.js para enviar mensajes de WhatsApp a una lista de contactos desde un archivo Excel. Diseñado para envíos de hasta 100 mensajes por día con mecanismos anti-detección: delays aleatorios entre mensajes, pausas largas y envío restringido al horario configurado.
 
 ## Stack
 - **Node.js 18+**
 - **whatsapp-web.js** — automatiza WhatsApp Web
 - **Puppeteer** — controla Chrome en segundo plano
-- **xlsx** — lectura de archivos Excel
-- **luxon** — manejo de timezone (Lima, Perú)
-
----
-
-## Requisitos
-
-- [Node.js 18 o superior](https://nodejs.org/)
-- Una cuenta de WhatsApp activa en el celular
-- Un archivo Excel (`.xlsx`) con los números de teléfono
 
 ---
 
@@ -25,7 +15,7 @@ Script de Node.js para enviar mensajes de WhatsApp a una lista de contactos desd
 npm install
 ```
 
-> La primera instalación descarga Chromium (~170 MB), que es el navegador que usa el script internamente. En Windows puede tardar varios minutos. Si falla, prueba desactivando el antivirus temporalmente o ejecutando la terminal como administrador.
+> La primera instalación descarga Chromium (170 MB), que es el navegador que usa el script internamente.
 
 ---
 
@@ -115,20 +105,6 @@ La sesión queda guardada en la carpeta `.wwebjs_auth/`. Las siguientes veces qu
 
 ### Comandos
 
-```bash
-# Envío normal — inicia o reanuda desde donde quedó
-node index.js
-
-# Ver estado sin enviar nada (no conecta a WhatsApp)
-node index.js --dry-run
-
-# Probar con un número específico antes de enviar a todos
-node index.js --test 51987654321
-
-# Reintentar solo los números que fallaron anteriormente
-node index.js --retry
-```
-
 | Comando | Descripción |
 |---------|-------------|
 | `node index.js` | Inicia el envío. Si ya hubo envíos previos, retoma desde el último contacto procesado |
@@ -149,30 +125,4 @@ El script crea y actualiza estos archivos de forma automática:
 | `data/state.json` | Guarda el progreso: índice del último contacto procesado. Permite reanudar si el script se interrumpe |
 | `data/failed.json` | Lista de números que no se pudieron enviar. Usa `--retry` para reintentarlos |
 | `.wwebjs_auth/` | Carpeta con la sesión de WhatsApp guardada. No la elimines si no quieres volver a escanear el QR |
-
----
-
-## Solución de problemas
-
-**El QR no aparece o tarda demasiado**
-- Cierra y vuelve a ejecutar el script
-- Ejecutar la terminal como administrador
-
-**El script dice que está fuera de horario y no envía**
-- Revisa `schedule.startHour` y `schedule.endHour` en `config.json`
-- La zona horaria está configurada como `America/Lima`; si usas el script en otro país, ajusta ese campo
-
-**Error al leer el Excel**
-- Verifica que el nombre del archivo en `config.json` coincide exactamente con el archivo en la carpeta (incluyendo mayúsculas y extensión)
-- Asegúrate de que los números en el Excel tienen el prefijo `51` (ejemplo: `51987654321`, no `987654321`)
-- Confirma que `phoneColumn` y `nameColumn` apuntan a las columnas correctas (la columna A es el índice `0`)
-
-**Mensajes fallidos / `data/failed.json` tiene números**
-- Algunos números pueden fallar si no tienen WhatsApp activo o si hay un problema temporal de conexión
-- Ejecuta `node index.js --retry` para reintentarlos
-- Si un número falla repetidamente, probablemente no tiene WhatsApp
-
-**La sesión se cerró y pide QR de nuevo**
-- Esto ocurre si WhatsApp cerró la sesión desde el celular o si eliminaste la carpeta `.wwebjs_auth/`
-- Simplemente escanea el QR nuevamente
 
